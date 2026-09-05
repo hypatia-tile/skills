@@ -57,9 +57,18 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      # gitleaks is run directly rather than through gitleaks-action, which
+      # scans only the pushed range `<before>^..<after>`. That range has no
+      # parent on a repository's first push, so the scan fails having read
+      # nothing -- a check that reports zero bytes scanned is worse than no
+      # check. Scanning the full history costs a second here and never
+      # depends on which commits an event happens to carry.
+      - name: gitleaks (full history)
+        run: nix run nixpkgs#gitleaks -- detect --source . --redact --verbose
 
   hygiene:
     name: Docs & commit hygiene
