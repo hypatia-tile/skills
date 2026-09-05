@@ -26,9 +26,11 @@ so `git status` is worth a look at the start of work.
 
 ## Skills
 
-The skills in `.claude/skills/` are this repository's payload, and they are
-simultaneously loaded as project-scoped skills whenever a session runs here.
-Editing one changes the running session's own behaviour.
+The skills in `.claude/skills/` are this repository's payload, and a session
+running here reaches them by both routes at once — as user-scoped skills
+through the symlink, and as project-scoped skills through the path. They are
+surfaced once rather than twice (checked 2026-09-05), so the overlap needs no
+handling. Editing one changes the running session's own behaviour.
 
 They are not listed in this file: Claude Code surfaces them from their
 frontmatter, and an index maintained in an always-loaded file goes stale.

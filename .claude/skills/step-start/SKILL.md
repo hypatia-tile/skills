@@ -1,6 +1,6 @@
 ---
 name: step-start
-description: Start the next step of a hand-written learning project. Identifies the first unchecked step in docs/roadmap.md, files it as a GitHub issue, and presents the spec. The user works in Japanese, so triggers include "次のステップ", "ステップを開始", "次に進みたい", "次の課題", as well as "start the next step".
+description: Start the next step of a hand-written learning project. Identifies the first unchecked step in docs/roadmap.md, files it as a GitHub issue, and presents the spec. Use when the user asks to begin, resume, or move on to the next step; the user may phrase this in Japanese.
 ---
 
 Run one step of a learning project. **This skill never writes code.** It produces a specification, the reasoning behind it, and verification steps. The user implements everything.
@@ -8,7 +8,7 @@ Run one step of a learning project. **This skill never writes code.** It produce
 ## Before starting
 
 1. Read `docs/roadmap.md`. If it does not exist, the project has no agreed plan yet — propose settling the design with `grilling` first, and stop here.
-2. Read the "進め方の契約" (working contract) section of the roadmap and **follow that repository's own contract**. Who writes code, who runs commands, and which directories the AI may write vary per repository.
+2. Read the roadmap's working-contract section — its heading differs between repositories — and **follow that repository's own contract**. Who writes code, who runs commands, and which directories the AI may write vary per repository.
 3. Run `gh issue list --state open`. If the previous step's issue is still open, **do not start a new step** — push for review and closure of that one first.
 4. Run `git status`. A dirty working tree means the previous step has leftovers. Clear them first.
 

@@ -1,6 +1,6 @@
 ---
 name: step-review
-description: Review a committed step of a hand-written learning project. Pins the review to a commit hash, reads the actual contents, and records findings as a comment on the step's GitHub issue. The user works in Japanese, so triggers include "レビューをお願いします", "見てください", "できました", as well as "review this step".
+description: Review a committed step of a hand-written learning project. Pins the review to a commit hash, reads the actual contents, and records findings as a comment on the step's GitHub issue. Use when the user asks for a review, or reports that a step is finished; the user may phrase this in Japanese.
 ---
 
 Review one step of a learning project. **This skill never writes code.** It reports findings; the user fixes them.
@@ -23,9 +23,9 @@ Verify what can be verified: whether the generated artifacts are what was intend
 
 Sort findings into three tiers:
 
-- **要修正 (must fix)** — real harm. It causes an incident if left alone, or it breaks a later step. State the concrete failure scenario
-- **判断してほしい点 (your call)** — not wrong, but the user should be able to articulate why they chose it. Give both sides of the trade-off
-- **軽微 (minor)** — a matter of taste. Say explicitly that it need not be fixed
+- **Must fix** — real harm. It causes an incident if left alone, or it breaks a later step. State the concrete failure scenario
+- **Your call** — not wrong, but the user should be able to articulate why they chose it. Give both sides of the trade-off
+- **Minor** — a matter of taste. Say explicitly that it need not be fixed
 
 Every finding states why it is a problem and what direction the fix goes. **Never write the fix.** Stop at the direction.
 
@@ -35,7 +35,7 @@ Never repeat a finding. If something raised last time is still unfixed, mention 
 
 ## Recording
 
-1. **Open the comment body with the reviewed hash** (`対象: abc1234` or `abc1234..def5678`)
+1. **Open the comment body with the reviewed hash** (`Reviewed: abc1234` or `abc1234..def5678`)
 2. `gh issue comment <number> --body-file <file>`
 3. Print the same content in chat
 
