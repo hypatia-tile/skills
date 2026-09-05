@@ -1,0 +1,85 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  flake:
+    name: Flake check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@v6
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+
+      # Validates the skill tree: SKILL.md present, frontmatter name matching
+      # the directory, description non-empty. These failures are silent at
+      # run time, so CI is where they have to be caught.
+      - name: Flake check (frozen lock)
+        run: nix flake check --no-update-lock-file -L
+
+  nix-lint:
+    name: Nix format & lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31
+
+      - name: nixfmt (check only)
+        run: |
+          find . -name '*.nix' -not -path './.git/*' -print0 \
+            | xargs -0 nix run nixpkgs#nixfmt -- --check
+
+      - name: statix
+        run: nix run nixpkgs#statix -- check .
+
+      - name: deadnix
+        run: nix run nixpkgs#deadnix -- --fail .
+
+  secrets:
+    name: Secret scan (gitleaks)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  hygiene:
+    name: Docs & commit hygiene
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: markdownlint
+        uses: DavidAnson/markdownlint-cli2-action@v19
+        with:
+          globs: '**/*.md'
+
+      - name: commitlint
+        uses: wagoid/commitlint-github-action@v6
+
+      # The installer scripts are also shellchecked at build time by
+      # writeShellApplication; this covers any loose script in the tree.
+      - name: shellcheck
+        uses: ludeeus/action-shellcheck@2.0.0
+        with:
+          ignore_paths: .git
