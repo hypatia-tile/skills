@@ -1,0 +1,12 @@
+# Nix build outputs
+result
+result-*
+
+# macOS noise
+.DS_Store
+
+# direnv
+.direnv/
+
+# Claude Code local overrides
+.claude/settings.local.json
