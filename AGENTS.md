@@ -46,6 +46,12 @@ here; they live in the repository they serve.
   procedure still makes sense in a repository you have never seen. If it
   names a specific repository's file layout, ADR numbering, CI gates, or
   issue tracker, it belongs in that repository's own `.claude/skills/`.
+- **A skill copied from elsewhere gets an entry in `NOTICE.md`** — source,
+  copyright holder, licence, and the date it was copied — before it is
+  committed. This repository is published under MIT, which permits
+  redistributing third-party MIT work only with its copyright notice
+  attached. Two skills already here were imported without that record and
+  the omission survived until the repository was already public.
 - **Run `nix flake check` before proposing a commit.** It runs the skill
   validation. Also run the formatters and linters CI runs —
   `nixfmt-rfc-style --check`, `statix`, `deadnix`, `markdownlint` — so a

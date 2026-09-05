@@ -70,3 +70,7 @@ Claude Code, it is simply never invoked.
 ## License
 
 MIT. See [LICENSE](LICENSE).
+
+`grilling` and `handoff` derive from
+[mattpocock/skills](https://github.com/mattpocock/skills) and carry its
+copyright as well; see [NOTICE.md](NOTICE.md).
