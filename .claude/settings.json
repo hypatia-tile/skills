@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(git push:*)"
+    ],
+    "ask": [
+      "Bash(git commit:*)"
+    ],
+    "allow": [
+      "Bash(nix flake check:*)",
+      "Bash(nix build:*)",
+      "Bash(nix eval:*)",
+      "Bash(nix fmt:*)",
+      "Bash(nix run .#check:*)",
+      "Bash(nix run nixpkgs#nixfmt-rfc-style:*)",
+      "Bash(nix run nixpkgs#statix:*)",
+      "Bash(nix run nixpkgs#deadnix:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git ls-files:*)",
+      "Bash(git branch:*)"
+    ]
+  }
+}
