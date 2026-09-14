@@ -1,5 +1,19 @@
 # skills
 
+> **Archived — moved to
+> [`hypatia-tile/dotfiles-mac`](https://github.com/hypatia-tile/dotfiles-mac),
+> `config/agents/skills/`.** On 2026-09-14 these skills moved there under
+> dotfiles-mac
+> [ADR 0028](https://github.com/hypatia-tile/dotfiles-mac/blob/main/docs/adr/0028-user-scope-agent-skills-as-a-payload.md),
+> which supersedes [ADR 0001](docs/adr/0001-deploy-skills-by-symlink-not-home-manager.md)
+> here. That repository's projector now links them into Claude Code and
+> Codex. **Do not run `nix run .#install`**: `~/.claude/skills` is now a real
+> directory holding those links, and this checkout is no longer the source.
+>
+> This repository is kept read-only and is not to be deleted. The copy
+> there carries no history, so this is the only place the skills' history
+> lives. Everything below describes the arrangement as it was.
+
 Personal, user-level [Claude Code](https://claude.com/claude-code) skills, and
 the installer that links them into `~/.claude/skills`.
 
